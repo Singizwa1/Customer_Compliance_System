@@ -18,13 +18,11 @@ export const createComplaint = async (complaintData, attachments = []) => {
 
   // Add attachments
   attachments.forEach((file) => {
-    formData.append("attachments", file)
+    formData.append("files", file)
   })
 
   return api.post("/complaints", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
+   
   })
 }
 

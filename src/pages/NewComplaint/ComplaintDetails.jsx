@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { FiPaperclip, FiX } from "react-icons/fi";
 
 const ComplaintDetails = ({
@@ -7,13 +7,44 @@ const ComplaintDetails = ({
   handleChange,
   handleFileUpload,
   attachments,
+  setAttachments,
   removeAttachment,
   getFileIcon,
   formatFileSize,
 }) => {
+  const fileInputRef = useRef(null);
+
+  // Cleanup for object URLs to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      attachments.forEach((att) => {
+        if (att.previewUrl) {
+          URL.revokeObjectURL(att.previewUrl);
+        }
+      });
+    };
+  }, [attachments]);
+
+  // Handle file input changes
+  const onFilesSelected = (e) => {
+    const files = Array.from(e.target.files);
+
+    const newAttachments = files.map((file) => ({
+      id: Date.now() + Math.random(),
+      name: file.name,
+      size: file.size,
+      type: file.type,
+      previewUrl: file.type.startsWith("image/") ? URL.createObjectURL(file) : null,
+      file,
+    }));
+
+    setAttachments((prev) => [...prev, ...newAttachments]);
+  };
+
   return (
     <div className="form-section">
       <h3 className="section-title">Complaint Details</h3>
+
       <div className="form-group">
         <label htmlFor="inquiryType" className="form-label">
           Inquiry Type
@@ -34,6 +65,7 @@ const ComplaintDetails = ({
           <option value="Other">Other</option>
         </select>
       </div>
+
       {formData.inquiryType === "Other" && (
         <div className="form-group">
           <label htmlFor="customerInquiryType" className="form-label">
@@ -53,6 +85,7 @@ const ComplaintDetails = ({
           )}
         </div>
       )}
+
       <div className="form-group">
         <label htmlFor="details" className="form-label">
           Complaint Details *
@@ -67,6 +100,7 @@ const ComplaintDetails = ({
         ></textarea>
         {errors.details && <div className="invalid-feedback">{errors.details}</div>}
       </div>
+
       {/* Proof of Inquiry / Attachments */}
       <div className="form-group">
         <label className="form-label">Proof of Inquiry</label>
@@ -74,31 +108,35 @@ const ComplaintDetails = ({
           <div className="file-upload-button">
             <input
               type="file"
-              ref={null}
-              onChange={handleFileUpload}
+              ref={fileInputRef}
+              onChange={onFilesSelected}
               multiple
               className="file-input"
               accept="image/*,.pdf,.doc,.docx,.txt"
+              style={{ display: "none" }}
             />
             <button
               type="button"
               className="btn btn-outline"
-              onClick={() => document.querySelector('input[type="file"]').click()}
+              onClick={() => fileInputRef.current?.click()}
             >
               <FiPaperclip />
               Attach Files
             </button>
-            <span className="file-upload-hint">Upload images, PDFs, or documents as proof</span>
+            <span className="file-upload-hint">
+              Upload images, PDFs, or documents as proof
+            </span>
           </div>
         </div>
+
         {attachments.length > 0 && (
           <div className="attachments-list">
-            {attachments.map((attachment) => (
-              <div key={attachment.id} className="attachment-item">
+            {attachments.map((attachment, index) => (
+              <div key={`${attachment.id}-${index}`} className="attachment-item">
                 <div className="attachment-preview">
                   {attachment.previewUrl ? (
                     <img
-                      src={attachment.previewUrl || "/placeholder.svg"}
+                      src={attachment.previewUrl}
                       alt={attachment.name}
                       className="attachment-image"
                     />

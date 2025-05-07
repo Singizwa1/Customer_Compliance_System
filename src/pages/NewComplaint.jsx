@@ -1,10 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import Header from "../components/common/Header";
 import Sidebar from "../components/common/Sidebar";
 import { createComplaint } from "../services/complaintService";
-import { FiInfo, FiAlertCircle, FiX, FiPaperclip } from "react-icons/fi";
+import { FiImage, FiFileText, FiPaperclip } from "react-icons/fi";
 import { toast } from "react-toastify";
 import "../styles/complaints.css";
 import CustomerInfo from "./NewComplaint/CustomerInfo";
@@ -15,7 +15,6 @@ import FormActions from "./NewComplaint/FormAction";
 const NewComplaint = () => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
-  const fileInputRef = useRef(null);
 
   const [formData, setFormData] = useState({
     customerName: "",
@@ -32,7 +31,7 @@ const NewComplaint = () => {
   const [attachments, setAttachments] = useState([]);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showForwardOptions, setShowForwardOptions] = useState(false);
+  const [showForwardOptions, setShowForwardOptions] = useState(true);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -47,22 +46,31 @@ const NewComplaint = () => {
 
   const validateForm = () => {
     const newErrors = {};
+
     if (!formData.customerName.trim()) {
       newErrors.customerName = "Customer name is required";
     }
+
     if (!formData.customerPhone.trim()) {
       newErrors.customerPhone = "Customer phone is required";
+    } else if (!/^\d+$/.test(formData.customerPhone.trim())) {
+      newErrors.customerPhone = "Telephone number must contain only numbers";
     }
+
     if (!formData.details.trim()) {
       newErrors.details = "Complaint details are required";
     }
+
+    const resolutionGiven = formData.attemptedResolution && formData.resolutionDetails.trim();
+
     if (formData.attemptedResolution && !formData.resolutionDetails.trim()) {
-      newErrors.resolutionDetails =
-        "Resolution details are required when attempted resolution is checked";
+      newErrors.resolutionDetails = "Resolution details are required when attempted resolution is checked";
     }
-    if (showForwardOptions && !formData.forwardTo) {
-      newErrors.forwardTo = "Please select a department to forward the complaint to";
+
+    if (!resolutionGiven && !formData.forwardTo) {
+      newErrors.forwardTo = "Provide a resolution or select a department to forward to";
     }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -71,78 +79,37 @@ const NewComplaint = () => {
     switch (inquiryType) {
       case "Technical Issue":
       case "Forgotten Password":
-        return {
-          id: "2",
-          name: "IT Department",
-        };
+        return { id: "2", name: "IT Department" };
       case "Payment Delay":
       case "Financial Transaction":
-        return {
-          id: "3",
-          name: "Funds Administration",
-        };
+        return { id: "3", name: "Funds Administration" };
       case "Repurchase Issue":
       case "Financial Approval":
-        return {
-          id: "4",
-          name: "Finance & Accounting",
-        };
+        return { id: "4", name: "Finance & Accounting" };
       default:
-        return {
-          id: "2",
-          name: "IT Department",
-        };
-    }
-  };
-
-  const handleFileUpload = (e) => {
-    const files = Array.from(e.target.files);
-    if (files.length === 0) return;
-
-    const newAttachments = files.map((file) => {
-      const isImage = file.type.startsWith("image/");
-      const previewUrl = isImage ? URL.createObjectURL(file) : null;
-      return {
-        id: Date.now() + Math.random().toString(36).substring(2, 9),
-        name: file.name,
-        size: file.size,
-        type: file.type,
-        previewUrl,
-        file,
-      };
-    });
-
-    setAttachments((prev) => [...prev, ...newAttachments]);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+        return { id: "2", name: "IT Department" };
     }
   };
 
   const removeAttachment = (id) => {
     setAttachments((prev) => {
-      const filtered = prev.filter((attachment) => attachment.id !== id);
-      const removed = prev.find((attachment) => attachment.id === id);
-      if (removed && removed.previewUrl) {
-        URL.revokeObjectURL(removed.previewUrl);
-      }
+      const filtered = prev.filter((a) => a.id !== id);
+      const removed = prev.find((a) => a.id === id);
+      if (removed?.previewUrl) URL.revokeObjectURL(removed.previewUrl);
       return filtered;
     });
   };
 
   const getFileIcon = (fileType) => {
-    if (fileType.startsWith("image/")) {
-      return <span className="file-icon image-icon">📷</span>;
-    } else if (fileType.includes("pdf")) {
-      return <span className="file-icon pdf-icon">📄</span>;
-    } else {
-      return <span className="file-icon file-icon">📎</span>;
-    }
+    if (fileType.startsWith("image/")) return <FiImage className="file-icon image-icon" />;
+    if (fileType.includes("pdf")) return <FiFileText className="file-icon pdf-icon" />;
+    return <FiPaperclip className="file-icon file-icon" />;
   };
 
   const formatFileSize = (bytes) => {
     if (bytes < 1024) return bytes + " bytes";
     else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
-    else return (bytes / 1048576).toFixed(1) + " MB";
+    return (bytes / 1048576).toFixed(1) + " MB";
   };
 
   const handleAttemptedResolutionChange = (e) => {
@@ -151,30 +118,19 @@ const NewComplaint = () => {
       ...prev,
       attemptedResolution: isChecked,
     }));
-    if (isChecked) {
-      setShowForwardOptions(true);
-    } else {
-      setShowForwardOptions(false);
-      setFormData((prev) => ({
-        ...prev,
-        forwardTo: "",
-      }));
-    }
+    setShowForwardOptions(true);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     try {
       setIsSubmitting(true);
 
-      // Automatically determine the department based on inquiry type
       const department = getDepartmentForInquiry(formData.inquiryType);
+      const resolutionGiven = formData.attemptedResolution && formData.resolutionDetails.trim();
 
-      // Prepare data for API
       const complaintData = {
         customerName: formData.customerName,
         customerPhone: formData.customerPhone,
@@ -183,22 +139,24 @@ const NewComplaint = () => {
         details: formData.details,
         attemptedResolution: formData.attemptedResolution,
         resolutionDetails: formData.resolutionDetails,
-        forwardTo: showForwardOptions ? formData.forwardTo : department.name, // Auto-forward if not manually selected
+        forwardTo: resolutionGiven ? null : formData.forwardTo || department.name,
+        status: resolutionGiven ? "Resolved" : "Pending",
+        submittedBy: currentUser?.email || "Unknown",
       };
 
-      // Extract file objects for upload
       const files = attachments.map((att) => att.file);
 
-      // Submit to API
-      await createComplaint(complaintData, files); // Remove 'response' assignment
-
+      await createComplaint(complaintData, files);
       toast.success("Complaint registered successfully!");
-      setTimeout(() => {
-        navigate("/complaints");
-      }, 2000);
+      setTimeout(() => navigate("/complaints"), 2000);
     } catch (error) {
       console.error("Create complaint error:", error);
-      toast.error(error.message || "Failed to register complaint");
+      if (error.response) {
+        console.error("Error response data:", error.response.data);
+        toast.error(`Failed to register complaint: ${error.response.data.error || 'Unknown error'}`);
+      } else {
+        toast.error(error.message || "Failed to register complaint");
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -214,17 +172,20 @@ const NewComplaint = () => {
             <div className="card">
               <div className="card-body">
                 <form onSubmit={handleSubmit} className="complaint-form">
-                  <CustomerInfo formData={formData} errors={errors} handleChange={handleChange} />
+                  <CustomerInfo
+                    formData={formData}
+                    errors={errors}
+                    handleChange={handleChange}
+                  />
                   <ComplaintDetails
                     formData={formData}
                     errors={errors}
                     handleChange={handleChange}
-                    handleFileUpload={handleFileUpload}
                     attachments={attachments}
+                    setAttachments={setAttachments}
                     removeAttachment={removeAttachment}
                     getFileIcon={getFileIcon}
                     formatFileSize={formatFileSize}
-                    getDepartmentForInquiry={getDepartmentForInquiry}
                   />
                   <ResolutionAttempt
                     formData={formData}
