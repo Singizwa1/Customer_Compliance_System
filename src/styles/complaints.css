@@ -1,496 +1,315 @@
 /* Complaints List Page */
 .complaints-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .search-filter-container {
-    display: flex;
-    gap: 15px;
-    flex: 1;
-    max-width: 600px;
-  }
-  
-  .search-container {
-    position: relative;
-    flex: 2;
-  }
-  
-  .search-icon {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--gray-color);
-  }
-  
-  .search-input {
-    width: 100%;
-    padding: 10px 10px 10px 35px;
-    border: 1px solid var(--gray-light);
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  .filter-container {
-    position: relative;
-    flex: 1;
-  }
-  
-  .filter-icon {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--gray-color);
-  }
-  
-  .filter-select {
-    width: 100%;
-    padding: 10px 10px 10px 35px;
-    border: 1px solid var(--gray-light);
-    border-radius: 4px;
-    font-size: 14px;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236c757d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 16px;
-  }
-  
-  .btn-view {
-    background-color: var(--primary-light);
-    color: var(--primary-dark);
-    border: none;
-  }
-  
-  .btn-view:hover {
-    background-color: var(--primary-color);
-    color: white;
-  }
-  
-  /* Complaint Detail Page */
-  .complaint-detail-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .btn-back {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background: none;
-    border: 1px solid var(--gray-light);
-    color: var(--gray-color);
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  
-  .btn-back:hover {
-    background-color: var(--gray-light);
-    color: var(--dark-color);
-  }
-  
-  .complaint-id-status {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .complaint-id-status h2 {
-    margin: 0;
-    font-size: 24px;
-    color: var(--primary-dark);
-  }
-  
-  .complaint-detail-content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .complaint-section {
-    background-color: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: var(--box-shadow);
-  }
-  
-  .complaint-section .card-header {
-    background-color: var(--primary-light);
-    padding: 15px 20px;
-  }
-  
-  .complaint-section .card-header h3 {
-    margin: 0;
-    font-size: 18px;
-    color: var(--primary-dark);
-  }
-  
-  .complaint-section .card-body {
-    padding: 20px;
-  }
-  
-  .detail-row {
-    display: flex;
-    margin-bottom: 15px;
-  }
-  
-  .detail-row:last-child {
-    margin-bottom: 0;
-  }
-  
-  .detail-label {
-    width: 150px;
-    font-weight: 600;
-    color: var(--gray-color);
-  }
-  
-  .detail-value {
-    flex: 1;
-  }
-  
-  .assigned-badge {
-    display: inline-block;
-    padding: 5px 10px;
-    background-color: var(--primary-light);
-    color: var(--primary-dark);
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  .unassigned-badge {
-    display: inline-block;
-    padding: 5px 10px;
-    background-color: var(--gray-light);
-    color: var(--gray-color);
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  .attachments-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
-  .attachment-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    background-color: var(--gray-light);
-    border-radius: 4px;
-    text-decoration: none;
-    color: var(--dark-color);
-    transition: background-color 0.3s;
-  }
-  
-  .attachment-item:hover {
-    background-color: var(--primary-light);
-  }
-  
-  .attachment-icon {
-    color: var(--primary-color);
-  }
-  
-  .attachment-name {
-    font-size: 14px;
-    max-width: 200px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .complaint-actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-  }
-  
-  .btn-forward {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background-color: var(--primary-light);
-    color: var(--primary-dark);
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  
-  .btn-forward:hover {
-    background-color: var(--primary-color);
-    color: white;
-  }
-  
-  /* New Complaint Form */
-  .new-complaint-container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .complaint-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .form-section {
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--gray-light);
-  }
-  
-  .form-section:last-child {
-    border-bottom: none;
-  }
-  
-  .section-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 15px;
-    color: var(--primary-dark);
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-filter-container {
+  display: flex;
+  gap: 15px;
+  flex: 1;
+  max-width: 600px;
+}
+
+.search-container {
+  position: relative;
+  flex: 2;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-color);
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 10px 10px 35px;
+  border: 1px solid var(--gray-light);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.filter-container {
+  position: relative;
+  flex: 1;
+}
+
+.filter-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-color);
+}
+
+.filter-select {
+  width: 100%;
+  padding: 10px 10px 10px 35px;
+  border: 1px solid var(--gray-light);
+  border-radius: 4px;
+  font-size: 14px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236c757d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+.btn-view {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  border: none;
+}
+
+.btn-view:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Complaint Detail Page */
+.complaint-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: 1px solid var(--gray-light);
+  color: var(--gray-color);
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-back:hover {
+  background-color: var(--gray-light);
+  color: var(--dark-color);
+}
+
+.complaint-id-status {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.complaint-id-status h2 {
+  margin: 0;
+  font-size: 24px;
+  color: var(--primary-dark);
+}
+
+.complaint-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.complaint-section {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+}
+
+.complaint-section .card-header {
+  background-color: var(--primary-light);
+  padding: 15px 20px;
+}
+
+.complaint-section .card-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--primary-dark);
+}
+
+.complaint-section .card-body {
+  padding: 20px;
+}
+
+.detail-row {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  width: 150px;
+  font-weight: 600;
+  color: var(--gray-color);
+}
+
+.detail-value {
+  flex: 1;
+}
+
+.assigned-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.unassigned-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: var(--gray-light);
+  color: var(--gray-color);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.attachments-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.attachment-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: var(--gray-light);
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--dark-color);
+  transition: background-color 0.3s;
+}
+
+.attachment-item:hover {
+  background-color: var(--primary-light);
+}
+
+.attachment-icon {
+  color: var(--primary-color);
+}
+
+.attachment-name {
+  font-size: 14px;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.complaint-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.btn-forward {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-forward:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Department info in forward modal */
+.department-info {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: var(--gray-light);
+  border-radius: 8px;
+}
+
+.department-info p {
+  margin-bottom: 10px;
+}
+
+.department-info ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.department-info li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .form-row {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .form-row .form-group {
-    flex: 1;
-  }
-  
-  .form-hint {
-    margin-top: 5px;
-    font-size: 0.85rem;
-    color: var(--gray-color);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  
-  .form-check {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .form-check-input {
-    margin-right: 10px;
-  }
-  
-  .forward-section {
-    background-color: var(--gray-light);
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 15px;
-  }
-  
-  .forward-info {
-    margin-top: 15px;
-    font-size: 14px;
-  }
-  
-  .forward-info p {
-    margin-bottom: 5px;
-  }
-  
-  .forward-info ul {
-    padding-left: 20px;
-    margin-bottom: 10px;
-  }
-  
-  .forward-info li {
-    margin-bottom: 5px;
-  }
-  
-  .info-note {
-    margin-top: 10px;
-    padding: 8px;
-    background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  /* File upload styles */
-  .file-upload-container {
-    margin-bottom: 15px;
-  }
-  
-  .file-upload-button {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  
-  .file-input {
-    display: none;
-  }
-  
-  .btn-outline {
-    background-color: transparent;
-    border: 1px dashed var(--gray-color);
-    color: var(--primary-color);
-    padding: 8px 15px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.2s ease;
-  }
-  
-  .btn-outline:hover {
-    background-color: rgba(58, 110, 165, 0.05);
-    border-color: var(--primary-color);
-  }
-  
-  .file-upload-hint {
-    color: var(--gray-color);
-    font-size: 0.85rem;
-  }
-  
-  .attachments-list {
-    display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 15px;
   }
-  
-  .attachment-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background-color: var(--gray-light);
-    border-radius: 6px;
-    gap: 12px;
+
+  .search-filter-container {
+    flex-direction: column;
   }
-  
-  .attachment-preview {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    border-radius: 4px;
-    overflow: hidden;
-    border: 1px solid #e0e0e0;
+
+  .detail-row {
+    flex-direction: column;
   }
-  
-  .attachment-image {
+
+  .detail-label {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    margin-bottom: 5px;
   }
-  
-  .attachment-info {
-    flex: 1;
-  }
-  
+
   .attachment-name {
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin-bottom: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 250px;
+    max-width: 150px;
   }
-  
-  .attachment-size {
-    font-size: 0.8rem;
-    color: var(--gray-color);
+
+  .complaint-detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
   }
-  
-  .attachment-remove {
-    background: none;
-    border: none;
-    color: var(--gray-color);
-    cursor: pointer;
-    padding: 5px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-  }
-  
-  .attachment-remove:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    color: var(--danger-color);
-  }
-  
-  /* Department info in forward modal */
-  .department-info {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: var(--gray-light);
-    border-radius: 8px;
-  }
-  
-  .department-info p {
-    margin-bottom: 10px;
-  }
-  
-  .department-info ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .department-info li {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .form-row {
-      flex-direction: column;
-      gap: 10px;
-    }
-  
-    .search-filter-container {
-      flex-direction: column;
-    }
-  
-    .detail-row {
-      flex-direction: column;
-    }
-  
-    .detail-label {
-      width: 100%;
-      margin-bottom: 5px;
-    }
-  
-    .attachment-name {
-      max-width: 150px;
-    }
-  
-    .complaint-detail-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 15px;
-    }
-  }
-  
+}
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.btn-danger:disabled {
+  background-color: #e4606d;
+  cursor: not-allowed;
+}
+

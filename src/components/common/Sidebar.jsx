@@ -1,13 +1,14 @@
 "use client"
 import { NavLink } from "react-router-dom"
 import { useAuth } from "../../contexts/AuthContext"
-import { FiHome, FiList, FiPlusCircle, FiUsers, FiBarChart2, FiSettings } from "react-icons/fi"
-
+import {FiHome,FiList,FiPlusCircle, FiUsers,FiBarChart2,FiSettings,} from "react-icons/fi"
+  
 const Sidebar = () => {
   const { currentUser } = useAuth()
 
   const getNavItems = () => {
-    const items = [
+    const items = []
+    items.push(
       {
         to: "/dashboard",
         icon: <FiHome />,
@@ -19,28 +20,35 @@ const Sidebar = () => {
         icon: <FiList />,
         label: "Complaints",
         roles: ["admin", "customer_relations_officer", "complaints_handler"],
-      },
-    ]
+      }
+    )
 
-  
     if (currentUser.role === "customer_relations_officer") {
       items.push({
         to: "/new",
         icon: <FiPlusCircle />,
         label: "New Complaint",
         roles: ["customer_relations_officer"],
-      },{
-
-      
-      to: "/settings",
-      icon: <FiSettings />,
-      label: "Settings",
-      roles: ["customer_relations_officer"],
-    },
-    )
+      })
     }
 
-    if (currentUser.role === "admin") {
+    if (
+      currentUser.role === "customer_relations_officer" ||
+      currentUser.role === "complaints_handler"
+    ) {
+      items.push({
+        to: "/settings",
+        icon: <FiSettings />,
+        label: "Settings",
+        roles: ["customer_relations_officer", "complaints_handler"],
+      })
+    }
+
+    // Admin-specific items
+    if (
+      currentUser.role === "admin" ||
+      currentUser.role === "customer_relations_officer"
+    ) {
       items.push(
         {
           to: "/users",
@@ -52,11 +60,12 @@ const Sidebar = () => {
           to: "/reports",
           icon: <FiBarChart2 />,
           label: "Reports",
-          roles: ["admin"],
-        },
+          roles: ["admin", "customer_relations_officer"], 
+        }
       )
     }
 
+  
     return items.filter((item) => item.roles.includes(currentUser.role))
   }
 
@@ -64,9 +73,7 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar">
-      <div className="sidebar-header">
-        
-      </div>
+      <div className="sidebar-header"></div>
 
       <div className="sidebar-user">
         <div className="user-avatar">{currentUser?.name.charAt(0)}</div>

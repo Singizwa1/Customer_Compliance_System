@@ -1,9 +1,10 @@
 import React from "react";
-import { FiCheck } from "react-icons/fi";
+import { IoCheckboxOutline } from "react-icons/io5"; 
+
 import Footer from "../components/common/Footer";
 import "../styles/landing.css";
-import logo from "../assets/logo.jpeg";     
-import secondaryLogo from "../assets/iterambere.jpeg";  
+import logo from "../assets/logo.jpeg";
+import secondaryLogo from "../assets/iterambere.jpeg";
 import Login from "./Login";
 
 const Landing = () => {
@@ -20,20 +21,13 @@ const Landing = () => {
           <div className="centered-content">
             <h1 className="title">Welcome to Customer Complaints System</h1>
             <p className="subtitle">Manage and handle customer complaints easily</p>
+          
 
+          
             <ul className="features-list">
-              <li>
-                <span className="check-icon"><FiCheck /></span>
-                Identify Customer Complaints
-              </li>
-              <li>
-                <span className="check-icon"><FiCheck /></span>
-                Address Customer Complaints
-              </li>
-              <li>
-                <span className="check-icon"><FiCheck /></span>
-                Handle Customer Complaints
-              </li>
+              <li><span className="check-icon"><IoCheckboxOutline /></span>Identify Customer Complaints</li>
+              <li><span className="check-icon"><IoCheckboxOutline /></span>Address Customer Complaints</li>
+              <li><span className="check-icon"><IoCheckboxOutline /></span>Handle Customer Complaints</li>
             </ul>
           </div>
         </div>
@@ -43,10 +37,13 @@ const Landing = () => {
           <div className="secondary-logo-container">
             <img src={secondaryLogo} alt="Secondary Logo" className="secondary-logo" />
           </div>
-          <Login />
+          <div className="login-card">
+        
+            <Login />
+          </div>
         </div>
       </div>
-      <Footer /> {/* Footer remains unchanged as per your request */}
+      <Footer />
     </div>
   );
 };

@@ -1,9 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useAuth } from "../contexts/AuthContext"
-import { FiAlertCircle } from "react-icons/fi"
+import { FiAlertCircle, FiEye, FiEyeOff } from "react-icons/fi"
 import "../styles/auth.css"
 
 const Login = () => {
@@ -11,6 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState("")
   const [emailError, setEmailError] = useState("")
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const { login, error } = useAuth()
   const navigate = useNavigate()
@@ -34,21 +35,13 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // Validate email format
-    if (!validateEmail(email)) {
-      return
-    }
+    if (!validateEmail(email)) return
 
     try {
       setLoading(true)
       const user = await login(email, password)
 
-      // Redirect based on user role
-      if (user.role === "customer_relations_officer") {
-        navigate("/dashboard")
-      } else if (user.role === "complaints_handler") {
-        navigate("/dashboard")
-      } else if (user.role === "admin") {
+      if (["admin", "customer_relations_officer", "complaints_handler"].includes(user.role)) {
         navigate("/dashboard")
       }
     } catch (error) {
@@ -91,14 +84,22 @@ const Login = () => {
 
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                className="form-control"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div className="password-input-wrapper">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  className="form-control"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <span
+                  className="password-toggle-icon"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? <FiEyeOff /> : <FiEye />}
+                </span>
+              </div>
             </div>
 
             <button type="submit" className="button" disabled={loading || emailError}>
@@ -108,10 +109,7 @@ const Login = () => {
 
           <div className="auth-footer">
             <p>Don't have an account? Please contact your administrator.</p>
-            
           </div>
-
-          
         </div>
       </div>
     </div>

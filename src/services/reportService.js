@@ -20,6 +20,15 @@ export const getDepartmentPerformance = async () => {
   return api.get("/reports/department-performance")
 }
 export const getAllComplaints = async () => {
-  const response = await api.get("/api/complaints")
+  const response = await api.get("/complaints")
   return response.data
 }
+export const getWeeklyComplaints = async () => {
+  const response = await api.get("/reports/weekly-complaints");
+
+  console.log('getWeeklyComplaints',response);
+  return response.data;
+};
+
+
+

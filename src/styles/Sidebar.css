@@ -1,0 +1,150 @@
+/* General Sidebar Styles */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #2c3e50; /* Dark blue */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Sidebar Header */
+  .sidebar-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: #1c2b3a; /* Slightly darker header */
+  }
+  
+  /* Logo */
+  .sidebar-logo {
+    width: 80%;
+    max-width: 120px;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto 10px;
+    display: block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  }
+  
+  /* System Name */
+  .sidebar-header p {
+    margin: 5px 0 0;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    font-weight: 500;
+  }
+  
+  /* User Section */
+  .sidebar-user {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    background-color: #243342; /* Slightly lighter than header */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  /* Avatar */
+  .user-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: #3498db; /* Brighter blue accent */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 12px;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* User Info */
+  .user-info {
+    flex: 1;
+  }
+  
+  .user-name {
+    margin: 0;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+  }
+  
+  .user-role {
+    margin: 3px 0 0;
+    font-size: 12px;
+    opacity: 0.7;
+    font-weight: 400;
+  }
+  
+  /* Navigation */
+  .sidebar-nav {
+    flex: 1;
+    padding: 15px 0;
+    overflow-y: auto;
+  }
+  
+  .sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar-nav li {
+    margin-bottom: 2px;
+  }
+  
+  /* Navigation Links */
+  .sidebar-nav a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  .sidebar-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: white;
+    border-left: 3px solid rgba(52, 152, 219, 0.5);
+  }
+  
+  .sidebar-nav a.active {
+    background-color: rgba(52, 152, 219, 0.2);
+    color: white;
+    border-left: 3px solid #3498db;
+  }
+  
+  .nav-icon {
+    margin-right: 12px;
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
+    opacity: 0.9;
+  }
+  
+  /* Footer */
+  .sidebar-footer {
+    padding: 15px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: #1c2b3a; /* Match header for consistency */
+  }
+  
+  

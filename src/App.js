@@ -1,3 +1,4 @@
+import './chartConfig';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
@@ -67,14 +68,15 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/settings"
-              element={
-                <ProtectedRoute roles={["customer_relations_officer"]}>
-                  <Settings />
-                </ProtectedRoute>
-              }
-              />
+         <Route
+         path="/settings"
+        element={
+        <ProtectedRoute roles={["customer_relations_officer", "complaints_handler"]}>
+        <Settings />
+        </ProtectedRoute>
+        }
+         />
+
             
 
             <Route
@@ -89,7 +91,7 @@ function App() {
             <Route
               path="/reports"
               element={
-                <ProtectedRoute roles={["admin"]}>
+                <ProtectedRoute roles={["admin","customer_relations_officer"]}>
                   <Reports />
                 </ProtectedRoute>
               }

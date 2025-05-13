@@ -7,7 +7,7 @@ import Header from "../components/common/Header"
 import Sidebar from "../components/common/Sidebar"
 import Loader from "../components/common/Loader"
 import ForwardComplaintModal from "../components/complaints/ForwardComplaintModal"
-import { getComplaintById, updateComplaint } from "../services/complaintService"
+import { getComplaintById, updateComplaint, deleteComplaint } from "../services/complaintService"
 import { FiArrowLeft, FiPaperclip, FiFile, FiFileText, FiImage } from "react-icons/fi"
 import { toast } from "react-toastify"
 import moment from "moment"
@@ -56,7 +56,7 @@ const ComplaintDetail = () => {
       setIsSubmitting(true)
       await updateComplaint(id, { status, resolution })
       toast.success("Complaint updated successfully")
-      fetchComplaint() 
+      fetchComplaint()
     } catch (error) {
       console.error("Failed to update complaint:", error)
       toast.error("Failed to update complaint")
@@ -65,14 +65,27 @@ const ComplaintDetail = () => {
     }
   }
 
-  const getFileIcon = (fileType) => {
-    if (fileType && fileType.startsWith("image/")) {
-      return <FiImage />
-    } else if (fileType && fileType.includes("pdf")) {
-      return <FiFileText />
-    } else {
-      return <FiFile />
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this complaint? This action cannot be undone.")
+    if (!confirmDelete) return
+
+    try {
+      setIsSubmitting(true)
+      await deleteComplaint(id)
+      toast.success("Complaint deleted successfully")
+      navigate("/complaints")
+    } catch (error) {
+      console.error("Delete failed:", error)
+      toast.error("Failed to delete complaint")
+    } finally {
+      setIsSubmitting(false)
     }
+  }
+
+  const getFileIcon = (fileType) => {
+    if (fileType && fileType.startsWith("image/")) return <FiImage />
+    if (fileType && fileType.includes("pdf")) return <FiFileText />
+    return <FiFile />
   }
 
   const canUpdateStatus = () => {
@@ -85,9 +98,7 @@ const ComplaintDetail = () => {
     return currentUser.role === "customer_relations_officer" && complaint.status === "Pending"
   }
 
-  if (loading) {
-    return <Loader />
-  }
+  if (loading) return <Loader />
 
   if (!complaint) {
     return (
@@ -112,17 +123,15 @@ const ComplaintDetail = () => {
   return (
     <div className="dashboard-container">
       <Sidebar />
-
       <div className="dashboard-content">
         <Header title="Complaint Details" />
-
         <main className="dashboard-main">
+
           <div className="complaint-detail-header">
             <button className="btn btn-back" onClick={() => navigate("/complaints")}>
               <FiArrowLeft />
               <span>Back to Complaints</span>
             </button>
-
             <div className="complaint-id-status">
               <h2>Complaint {complaint.id}</h2>
               <span className={`status-badge ${complaint.status.toLowerCase().replace(" ", "-")}`}>
@@ -132,13 +141,14 @@ const ComplaintDetail = () => {
           </div>
 
           <div className="complaint-detail-content">
+            {/* Customer Info */}
             <div className="complaint-section card">
               <div className="card-header">
                 <h3>Customer Information</h3>
               </div>
               <div className="card-body">
                 <div className="detail-row">
-                  <div className="detail-label"> Customer Name:</div>
+                  <div className="detail-label">Customer Name:</div>
                   <div className="detail-value">{complaint.customer_name}</div>
                 </div>
                 <div className="detail-row">
@@ -156,6 +166,7 @@ const ComplaintDetail = () => {
               </div>
             </div>
 
+            {/* Complaint Details */}
             <div className="complaint-section card">
               <div className="card-header">
                 <h3>Complaint Details</h3>
@@ -181,7 +192,6 @@ const ComplaintDetail = () => {
                     )}
                   </div>
                 </div>
-
                 {complaint.attachments && complaint.attachments.length > 0 && (
                   <div className="detail-row">
                     <div className="detail-label">Attachments:</div>
@@ -203,7 +213,6 @@ const ComplaintDetail = () => {
                     </div>
                   </div>
                 )}
-
                 {complaint.attempted_resolution && (
                   <div className="detail-row">
                     <div className="detail-label">Resolution Attempt:</div>
@@ -213,6 +222,7 @@ const ComplaintDetail = () => {
               </div>
             </div>
 
+            {/* Status Update Section */}
             {canUpdateStatus() && (
               <div className="complaint-section card">
                 <div className="card-header">
@@ -264,6 +274,20 @@ const ComplaintDetail = () => {
               </div>
             )}
 
+            {/* ✅ Delete Button Visible to Admin and CROs Always */}
+            {(currentUser.role === "admin" || currentUser.role === "customer_relations_officer") && (
+              <div className="complaint-section card">
+                <div className="card-body">
+                  <div className="form-actions">
+                    <button className="btn btn-danger" onClick={handleDelete} disabled={isSubmitting}>
+                      {isSubmitting ? "Deleting..." : "Delete Complaint"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Forward Button for CROs */}
             {canForwardComplaint() && (
               <div className="complaint-actions">
                 <button className="btn btn-forward" onClick={() => setShowForwardModal(true)}>
@@ -276,6 +300,7 @@ const ComplaintDetail = () => {
         </main>
       </div>
 
+      {/* Forward Modal */}
       {showForwardModal && (
         <ForwardComplaintModal
           complaint={complaint}
