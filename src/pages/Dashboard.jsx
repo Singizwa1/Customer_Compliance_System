@@ -134,7 +134,7 @@ const Dashboard = () => {
               <table className="complaints-table">
                 <thead>
                   <tr>
-                    <th>ID</th>
+                    
                     <th>Customer Name</th>
                     <th>Telephone number</th>
                     <th>Inquiry Type</th>
@@ -152,7 +152,7 @@ const Dashboard = () => {
                   ) : (
                     complaints.slice(0, 5).map((complaint) => (
                       <tr key={complaint.id}>
-                        <td>#{complaint.id}</td>
+                        
                         <td>{complaint.customer_name}</td>
                         <td>{complaint.customer_phone}</td>
                         <td>{complaint.inquiry_type}</td>

@@ -21,7 +21,7 @@ const CustomerInfo = ({ formData, errors, handleChange }) => {
         </div>
         <div className="form-group">
           <label htmlFor="customerPhone" className="form-label">
-            Phone Number *
+            Telephone Number *
           </label>
           <input
             type="tel"

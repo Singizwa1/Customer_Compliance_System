@@ -17,8 +17,8 @@ const Login = () => {
   const navigate = useNavigate()
 
   const validateEmail = (email) => {
-    if (!email.endsWith("rnit.rw")) {
-      setEmailError("Email must end with rnit.rw domain")
+    if (!email.endsWith("gmail.com")) {
+     // setEmailError("Email must end with rnit.rw domain")
       return false
     }
     setEmailError("")
@@ -76,7 +76,7 @@ const Login = () => {
                 className={`form-control ${emailError ? "is-invalid" : ""}`}
                 value={email}
                 onChange={handleEmailChange}
-                placeholder="username@rnit.rw"
+                placeholder="username@gmail.com"
                 required
               />
               {emailError && <div className="invalid-feedback">{emailError}</div>}

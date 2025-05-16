@@ -10,6 +10,7 @@ import { NotificationProvider } from "./contexts/NotificationContext"
 
 // Pages
 import Landing from "./pages/Landing"
+import Login from "./pages/Login" // ✅ Added Login page
 import Dashboard from "./pages/Dashboard"
 import Complaints from "./pages/Complaints"
 import ComplaintDetail from "./pages/ComplaintDetail"
@@ -30,7 +31,7 @@ function App() {
           <ToastContainer position="top-right" autoClose={3000} />
           <Routes>
             <Route path="/" element={<Landing />} />
-            
+            <Route path="/login" element={<Login />} /> {/* ✅ Login route added */}
 
             {/* Protected Routes */}
             <Route
@@ -41,7 +42,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
             <Route
               path="/complaints"
               element={
@@ -50,7 +50,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
             <Route
               path="/complaints/:id"
               element={
@@ -59,7 +58,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
             <Route
               path="/new"
               element={
@@ -68,17 +66,14 @@ function App() {
                 </ProtectedRoute>
               }
             />
-         <Route
-         path="/settings"
-        element={
-        <ProtectedRoute roles={["customer_relations_officer", "complaints_handler"]}>
-        <Settings />
-        </ProtectedRoute>
-        }
-         />
-
-            
-
+            <Route
+              path="/settings"
+              element={
+                <ProtectedRoute roles={["customer_relations_officer", "complaints_handler"]}>
+                  <Settings />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/users"
               element={
@@ -87,11 +82,10 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
             <Route
               path="/reports"
               element={
-                <ProtectedRoute roles={["admin","customer_relations_officer"]}>
+                <ProtectedRoute roles={["admin", "customer_relations_officer"]}>
                   <Reports />
                 </ProtectedRoute>
               }
@@ -106,4 +100,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

@@ -18,10 +18,7 @@ const Footer = () => {
               <FiPhone className="footer-icon" />
               <span>+250 788 123 456</span>
             </li>
-            <li>
-              <FiMail className="footer-icon" />
-              <span>support@rnit.rw</span>
-            </li>
+         
             <li>
               <FiMapPin className="footer-icon" />
               <span>Kigali, Rwanda</span>

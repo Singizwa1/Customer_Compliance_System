@@ -71,7 +71,7 @@
   color: white;
 }
 
-/* Complaint Detail Page */
+
 .complaint-detail-header {
   display: flex;
   justify-content: space-between;
@@ -123,14 +123,14 @@
 }
 
 .complaint-section .card-header {
-  background-color: var(--primary-light);
+  background-color: var(--primary-color);
   padding: 15px 20px;
 }
 
 .complaint-section .card-header h3 {
   margin: 0;
   font-size: 18px;
-  color: var(--primary-dark);
+  color: var(--primary-light);
 }
 
 .complaint-section .card-body {
@@ -149,11 +149,12 @@
 .detail-label {
   width: 150px;
   font-weight: 600;
-  color: var(--gray-color);
+  color: var(--primary-dark);
 }
 
 .detail-value {
   flex: 1;
+  color: var(--gray-light);
 }
 
 .assigned-badge {

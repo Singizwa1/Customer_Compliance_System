@@ -63,8 +63,8 @@ const Users = () => {
 
     if (!formData.email.trim()) {
       newErrors.email = "Email is required"
-    } else if (!formData.email.endsWith("rnit.rw")) {
-      newErrors.email = "Email must end with rnit.rw domain"
+    } else if (!formData.email.endsWith("gmail.com")) {
+      newErrors.email = "Email must end with gmail.com domain"
     }
 
     if (!editingUser && !formData.password.trim()) {

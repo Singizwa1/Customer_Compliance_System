@@ -10,6 +10,8 @@ import { getComplaints} from "../services/complaintService"
 import { FiSearch, FiFilter, FiEye, FiPlus } from "react-icons/fi"
 import "../styles/complaints.css"
 
+import "../styles/global.css"
+
 const Complaints = () => {
   const { currentUser } = useAuth()
   const [complaints, setComplaints] = useState([])
@@ -113,10 +115,9 @@ const Complaints = () => {
             <table className="complaints-table">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>Date</th>
                   <th>Customer Name</th>
                   <th> Inquiry Type</th>
-                  <th>Date</th>
                   <th>Status</th>
                   <th>Assigned To</th>
                   <th>Actions</th>
@@ -132,10 +133,10 @@ const Complaints = () => {
                 ) : (
                   filteredComplaints.map((complaint) => (
                     <tr key={complaint.id}>
-                      <td>#{complaint.id}</td>
+                      <td>{new Date(complaint.date).toLocaleDateString()}</td>
                       <td>{complaint.customer_name}</td>
                       <td>{complaint.inquiry_type}</td>
-                      <td>{new Date(complaint.date).toLocaleDateString()}</td>
+                    
                       <td>
                         <span className={`status-badge ${complaint.status.toLowerCase().replace(" ", "-")}`}>
                           {complaint.status}

@@ -3,20 +3,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
+    background-color: white;
     padding: 20px;
   }
   
   .auth-container {
     width: 100%;
-    max-width: 700px;
+    max-width: 430px;
+    max-height: 700px;
+    height: 100%;
+
   }  
   .auth-card {
-    background-color:var(--primary-dark);;
+    
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     padding: 30px;
     width: 100%;
+    background-color: var(--primary-dark);
   }
   
   .auth-header {

@@ -21,10 +21,10 @@
   
   /* Sidebar */
   .sidebar {
-    width: 250px;
+    width: 200px;
     height: 100vh;
-    background-color: var(--primary-dark);
-    color: white;
+    background-color: #000060;
+    color: var(--primary-light);
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -78,12 +78,12 @@
   .user-name {
     margin: 0;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 10px;
   }
   
   .user-role {
     margin: 0;
-    font-size: 12px;
+    font-size: 8px;
     opacity: 0.7;
   }
   
@@ -353,12 +353,13 @@
     color: var(--gray-color);
   }
   
-  /* Dashboard Summary Cards */
+  
   .dashboard-summary {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
     margin-bottom: 30px;
+    
   }
   
   .summary-card {
@@ -370,14 +371,22 @@
     align-items: center;
     transition: transform 0.3s ease;
   }
-  
+  .summary-card.pending-card {
+  background-color: #ffecec; 
+  }
+  .summary-card.in-progress-card {
+  background-color: #fff8e1; 
+}
+.summary-card.resolved-card {
+  background-color: #e6f9ed; 
+}
   .summary-card:hover {
     transform: translateY(-5px);
   }
   
   .summary-icon {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -458,7 +467,7 @@
   
   .complaints-table th {
     background-color: var(--primary-light);
-    color: var(--primary-dark);
+    color: #000060;
     font-weight: 600;
     text-align: left;
     padding: 12px 15px;
