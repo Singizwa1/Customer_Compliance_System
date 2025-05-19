@@ -1,21 +1,17 @@
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import logo from "../assets/logo.png"; 
 
-// 🟢 Helper to format date
 const formatDate = (dateStr) => {
   if (!dateStr) return "-";
   const date = new Date(dateStr);
   return date.toLocaleDateString();
 };
-
-// 🟢 Build filename with optional week header
 const getFilename = (prefix, weekLabel) => {
   const label = weekLabel ? `_${weekLabel.replace(/\s+/g, "_")}` : "";
   return `${prefix}${label}`;
 };
-
-// ✅ Export to Excel
 export const exportToExcel = (data, weekLabel = "") => {
   const mappedData = data.map(item => ({
     ID: item.id,
@@ -36,22 +32,27 @@ export const exportToExcel = (data, weekLabel = "") => {
   XLSX.writeFile(wb, `${filename}.xlsx`);
 };
 
-// ✅ Export to PDF
-export const exportToPDF = (data, weekLabel = "") => {
+const toBase64 = (url) =>
+  fetch(url)
+    .then(res => res.blob())
+    .then(blob => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    }));
+
+export const exportToPDF = async (data, weekLabel = "") => {
   const doc = new jsPDF();
+  const filename = getFilename("Weekly_Complaint_Report", weekLabel);
+
   const headers = [
-    "ID",
-    "Date",
-    "Customer Name",
-    "Inquiry Type",
-    "Status",
-    "Department",
-    "Resolved Date",
-    "Resolution"
+     "Date", "Customer Name", "Inquiry Type",
+    "Status", "Department", "Resolved Date", "Resolution"
   ];
 
   const rows = data.map(item => [
-    item.id,
+    
     formatDate(item.date),
     item.customer_name || "-",
     item.inquiry_type || "-",
@@ -61,13 +62,27 @@ export const exportToPDF = (data, weekLabel = "") => {
     item.resolution || "-"
   ]);
 
-  const filename = getFilename("Weekly_Complaint_Report", weekLabel);
+  const logoBase64 = await toBase64(logo);
+  const logoWidth = 25;
+  const logoHeight = 15;
+  const marginTop = 10;
+  const textX = 15 + logoWidth + 5;
 
-  doc.text(filename.replace(/_/g, " "), 14, 15);
+  
+  doc.addImage(logoBase64, "PNG", 15, marginTop, logoWidth, logoHeight);
+  doc.setFontSize(12);
+  doc.text("RWANDA National Investment Trust Ltd", textX, marginTop + 10);
+
+  
+  doc.setFontSize(14);
+  doc.text("Customer Complaints Report", 15, marginTop + logoHeight + 10);
+  doc.setFontSize(10);
+  doc.text(`Generated on: ${formatDate(new Date())}`, 15, marginTop + logoHeight + 16);
+
   autoTable(doc, {
     head: [headers],
     body: rows,
-    startY: 25,
+    startY: marginTop + logoHeight + 22,
     theme: "grid",
     styles: { fontSize: 10 },
   });
