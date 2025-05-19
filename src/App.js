@@ -10,7 +10,8 @@ import { NotificationProvider } from "./contexts/NotificationContext"
 
 // Pages
 import Landing from "./pages/Landing"
-import Login from "./pages/Login" // ✅ Added Login page
+import Login from "./pages/Login"
+ import About from "./pages/About";
 import Dashboard from "./pages/Dashboard"
 import Complaints from "./pages/Complaints"
 import ComplaintDetail from "./pages/ComplaintDetail"
@@ -31,7 +32,8 @@ function App() {
           <ToastContainer position="top-right" autoClose={3000} />
           <Routes>
             <Route path="/" element={<Landing />} />
-            <Route path="/login" element={<Login />} /> {/* ✅ Login route added */}
+            <Route path="/login" element={<Login />} /> 
+            <Route path="/about" element={<About />} /> 
 
             {/* Protected Routes */}
             <Route

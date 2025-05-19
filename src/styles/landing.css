@@ -27,7 +27,7 @@ body {
 .landing-page {
   color: var(--primary-dark);
   line-height: 1.6;
-  background-color: var(--primary-light);
+  background-color: white;
 }
 
 /* ========== NAVBAR ========== */
@@ -36,17 +36,18 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #000060;
-  box-shadow: var(--shadow-sm);
+  background-color: var(--primary-light);
+  
   position: sticky;
   top: 0;
   z-index: 999;
   transition: background-color var(--transition-speed) ease;
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
 }
 
-.navbar:hover {
-  background-color: var(--primary-light);
-}
+
 
 .nav-left {
   display: flex;
@@ -63,13 +64,11 @@ body {
 .org-name {
   font-size: 1.3rem;
   font-weight: bold;
-  color: var(--primary-light);
+  color: #000060;
   transition: color var(--transition-speed) ease;
 }
 
-.org-name:hover {
-  color: var(--accent-color);
-}
+
 
 .nav-links {
   display: flex;
@@ -79,7 +78,7 @@ body {
 
 .nav-links a {
   text-decoration: none;
-  color: var(--primary-light);
+  color: #000060;
   font-weight: 500;
   transition: color var(--transition-speed) ease;
   font-size: 1.2rem;
@@ -89,14 +88,8 @@ body {
   color: var(--accent-color);
 }
 
-.navbar:hover .org-name,
-.navbar:hover .nav-links a {
-  color: var(--primary-dark);
-}
-.nav-links a.active {
-  color: #000060;
-  font-weight: bold;
-}
+
+
 
 .get-started-btn {
   padding: 0.6rem 1.2rem;
@@ -155,7 +148,7 @@ body {
 
 .cta-btn {
   padding: 0.6rem 1.2rem;
-  font-size: 1rem;
+  font-size: 0.5rem;
   font-weight: bold;
   background-color: transparent;
   color: var(--primary-dark);
@@ -389,4 +382,6 @@ body {
     grid-template-columns: 1fr;
     padding: 2rem 1rem;
   }
+
 }
+
