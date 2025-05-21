@@ -169,7 +169,7 @@ const Reports = () => {
               pending={pendingCount}
               avgResolutionTime={avgResolutionTime}
             />
-            {/* Pass callback to update exportable data */}
+            
             <WeeklyComplaintsTable onExportDataChange={setExportableData} />
           </div>
         </main>

@@ -1,168 +1,148 @@
-.auth-page {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    padding: 20px;
-  }
-  
-  .auth-container {
-    width: 100%;
-    max-width: 430px;
-    max-height: 700px;
-    height: 100%;
+/* auth.css */
 
-  }  
-  .auth-card {
-    
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    padding: 30px;
-    width: 100%;
-    background-color: var(--primary-dark);
+.login-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* LEFT SIDE */
+.login-left {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+
+/* RIGHT SIDE */
+.login-right {
+  flex: 1;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px;
+  position: relative;
+}
+
+.welcome-text {
+  position: absolute;
+  top: 40px;
+  left: 150px;
+}
+
+.welcome-text h2 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.welcome-text p {
+  font-size: 1rem;
+  color:var(--primary dark);
+}
+
+.login-form-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.form-control {
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.is-invalid {
+  border-color: #e74c3c;
+}
+
+.invalid-feedback {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+.password-input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
+  color: #555;
+}
+
+.button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.auth-footer {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
   }
-  
-  .auth-header {
-    text-align: center;
-    margin-bottom: 30px;
+
+  .login-left {
+    display: none;
   }
-  
-  .auth-header h2 {
-    color: white;
-    font-size: 24px;
-    margin-bottom: 10px;
+
+  .login-right {
+    padding: 40px 20px;
   }
-  
-  .auth-header p {
-    color: var(--gray-color);
-    font-size: 16px;
-  }
-  
-  .auth-form {
+
+  .welcome-text {
+    position: static;
     margin-bottom: 20px;
   }
-  
-  .auth-form .form-group {
-    margin-bottom: 20px;
+
+  .login-form-container {
+    max-width: 100%;
   }
-  
-  .auth-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: white;
-  }
-  
-  .auth-form .form-control {
-    height: 48px;
-    font-size: 16px;
-  }
-  
-  .auth-form .btn {
-    height: 48px;
-    font-size: 16px;
-    font-weight: 600;
-  }
-  
-  .auth-footer {
-    text-align: center;
-    margin-top: 20px;
-    color: var(--gray-color);
-  }
-  
-  .auth-footer p {
-    margin-bottom: 10px;
-  }
-  
-  .back-link {
-    color: var(--primary-color);
-    font-weight: 500;
-  }
-  
-  .back-link:hover {
-    text-decoration: underline;
-  }
-  
-  .demo-accounts {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid var(--gray-light);
-  }
-  
-  .demo-accounts h3 {
-    font-size: 16px;
-    margin-bottom: 10px;
-    color: var(--primary-dark);
-  }
-  
-  .demo-accounts ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-  
-  .demo-accounts li {
-    margin-bottom: 8px;
-    font-size: 14px;
-  }
-  
-  .demo-accounts strong {
-    color: var(--primary-dark);
-  }
-  
-  @media (max-width: 576px) {
-    .auth-card {
-      padding: 20px;
-    }
-  
-    .auth-header h2 {
-      font-size: 20px;
-    }
-  
-    .auth-form .form-control,
-    .auth-form .btn {
-      height: 44px;
-      font-size: 15px;
-    }
-  }
-  .button {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    background-color: #007bff; /* Bootstrap-style blue */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 1rem;
-  }
-  
-  .button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-  }
-  
-  .button:disabled {
-    background-color: #6c757d;
-    cursor: not-allowed;
-  }
-  .password-input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-  
-  .password-input-wrapper input {
-    width: 100%;
-    padding-right: 2.5rem;
-  }
-  
-  .password-toggle-icon {
-    position: absolute;
-    right: 10px;
-    cursor: pointer;
-    color: #666;
-  }
-  
-  
+}

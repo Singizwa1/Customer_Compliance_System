@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { useAuth } from "../contexts/AuthContext"
 import { FiAlertCircle, FiEye, FiEyeOff } from "react-icons/fi"
 import "../styles/auth.css"
+import heroImage from "../assets/background.jpeg"
 
 const Login = () => {
   const [email, setEmail] = useState("")
@@ -18,7 +19,7 @@ const Login = () => {
 
   const validateEmail = (email) => {
     if (!email.endsWith("gmail.com")) {
-     // setEmailError("Email must end with rnit.rw domain")
+      setEmailError("Only Gmail addresses are allowed")
       return false
     }
     setEmailError("")
@@ -34,13 +35,11 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
     if (!validateEmail(email)) return
 
     try {
       setLoading(true)
       const user = await login(email, password)
-
       if (["admin", "customer_relations_officer", "complaints_handler"].includes(user.role)) {
         navigate("/dashboard")
       }
@@ -52,14 +51,19 @@ const Login = () => {
   }
 
   return (
-    <div className="auth-page">
-      <div className="auth-container">
-        <div className="auth-card">
-          <div className="auth-header">
-            <h2>Login to your account</h2>
-            <p>Enter your credentials to access the system</p>
-          </div>
+    <div className="login-container">
+      <div className="login-left">
+        <img src={heroImage} alt="Support" className="login-background" />
+       
+      </div>
 
+      <div className="login-right">
+        <div className="welcome-text">
+          <h2>Welcome Back</h2>
+          <p>Please sign in to continue</p>
+        </div>
+
+        <div className="login-form-container">
           {error && (
             <div className="alert alert-danger">
               <FiAlertCircle />
@@ -108,7 +112,7 @@ const Login = () => {
           </form>
 
           <div className="auth-footer">
-            <p>Don't have an account? Please contact your administrator.</p>
+            <p>Don't have an account? Contact your administrator.</p>
           </div>
         </div>
       </div>

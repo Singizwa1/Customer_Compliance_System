@@ -1,4 +1,4 @@
-// src/pages/reports/StatusDistributionChart.jsx
+
 import React from "react"
 import { Pie } from "react-chartjs-2"
 
@@ -8,8 +8,8 @@ const StatusDistributionChart = ({ data }) => {
     datasets: [{
       label: "Complaint Status Distribution",
       data: data.map(item => item.count),
-      backgroundColor: ["rgba(255, 193, 7, 0.7)", "rgba(58, 110, 165, 0.7)", "rgba(40, 167, 69, 0.7)"],
-      borderColor: ["rgba(255, 193, 7, 1)", "rgba(58, 110, 165, 1)", "rgba(40, 167, 69, 1)"],
+      backgroundColor: ["rgba(0, 128, 0, 1)","rgba(255, 165, 0, 1)", "rgba(52, 152, 219, 1)" ],
+      borderColor: ["rgba(0, 128, 0, 1)","rgba(255, 165, 0, 1)", "rgba(52, 152, 219, 1)" ],
       borderWidth: 1
     }]
   }
